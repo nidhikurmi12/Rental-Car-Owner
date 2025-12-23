@@ -1,193 +1,46 @@
-// import React, { useEffect, useState } from 'react'
-// import axios from 'axios'
-// import { useDispatch, useSelector } from "react-redux";
-// import { getAllCars,getCarById,deleteCar,updateCar } from "../redux/slice/carSlice";
-
-
-
-// export default function CarManagement() {
-//   const [cars, setCars] = useState([])
-//   const [loading, setLoading] = useState(false)
-//   const [error, setError] = useState('')
-//   const [query, setQuery] = useState('')
-
-//   // fetch cars from API
-//   const fetchCars = async () => {
-//     try {
-//       setLoading(true)
-//       setError('')
-//       const res = await axios.get('/api/cars') // <-- change to your API endpoint
-//       setCars(res.data || [])
-//     } catch (err) {
-//       console.error(err)
-//       setError('Failed to load cars')
-//       // fallback: setCars(sampleData)
-//     } finally {
-//       setLoading(false)
-//     }
-//   }
-
-//   useEffect(() => {
-//     fetchCars()
-//   }, [])
-
-//   const handleDelete = async (id) => {
-//     if (!confirm('Delete this car?')) return
-//     try {
-//       await axios.delete(`/api/cars/${id}`)
-//       setCars(prev => prev.filter(c => c._id !== id))
-//     } catch (err) {
-//       console.error(err)
-//       alert('Delete failed')
-//     }
-//   }
-
-//   const filtered = cars?.filter(car => {
-//     const t = query.trim().toLowerCase()
-//     if (!t) return true
-//     return (
-//       (car.brand || '').toLowerCase().includes(t) ||
-//       (car.model || '').toLowerCase().includes(t) ||
-//       (car.variant || '').toLowerCase().includes(t) ||
-//       (car.vehicleNumber || '').toLowerCase().includes(t)
-//     )
-//   })
-
-//   return (
-//     <div className="min-h-screen bg-pink-50 p-6">
-//       <div className="max-w-5xl mx-auto">
-//         <h2 className="text-gray-500 text-sm mb-4">manage car</h2>
-
-//         {/* Search area */}
-//         <div className="flex justify-center mb-8">
-//           <input
-//             value={query}
-//             onChange={e => setQuery(e.target.value)}
-//             placeholder="Search"
-//             className="w-3/4 md:w-2/3 bg-white/80 placeholder-gray-400 text-gray-700 text-2xl text-center rounded-xl py-3 shadow-inner border border-gray-200"
-//           />
-//         </div>
-
-//         {/* Table container with card-like background similar to the image */}
-//         <div className="bg-white/80 rounded-md p-6 shadow-sm border border-gray-200">
-//           {loading ? (
-//             <div className="text-center py-8 text-gray-500">Loading...</div>
-//           ) : error ? (
-//             <div className="text-center py-8 text-red-500">{error}</div>
-//           ) : (
-//             <div className="overflow-x-auto">
-//               <table className="min-w-full border-collapse table-fixed">
-//                 <thead>
-//                   <tr className="bg-pink-100">
-//                     <th className="px-3 py-2 border text-left w-16">s.no</th>
-//                     <th className="px-3 py-2 border text-left">Car Model</th>
-//                     <th className="px-3 py-2 border text-left">Variant</th>
-//                     <th className="px-3 py-2 border text-left">Registration Number</th>
-//                     <th className="px-3 py-2 border text-left">Car Type</th>
-//                     <th className="px-3 py-2 border text-left">Color</th>
-//                     <th className="px-3 py-2 border text-left">Seating capacity</th>
-//                     <th className="px-3 py-2 border text-left w-40">Action</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                   {filtered.length === 0 ? (
-//                     <tr>
-//                       <td className="px-3 py-8 border text-center" colSpan={8}>
-//                         No cars found
-//                       </td>
-//                     </tr>
-//                   ) : (
-//                     filtered.map((car, idx) => (
-//                       <tr key={car._id || idx} className="odd:bg-white even:bg-pink-50">
-//                         <td className="px-3 py-5 border align-top">{idx + 1}</td>
-//                         <td className="px-3 py-5 border align-top">{car.brand} {car.model}</td>
-//                         <td className="px-3 py-5 border align-top">{car.variant}</td>
-//                         <td className="px-3 py-5 border align-top">{car.vehicleNumber}</td>
-//                         <td className="px-3 py-5 border align-top">{car.carType}</td>
-//                         <td className="px-3 py-5 border align-top">{car.color}</td>
-//                         <td className="px-3 py-5 border align-top">{car.seats}</td>
-//                         <td className="px-3 py-5 border align-top">
-//                           <div className="flex flex-col gap-2">
-//                             <button
-//                               onClick={() => alert('View: ' + (car._id || ''))}
-//                               className="text-left hover:underline"
-//                             >
-//                               View
-//                             </button>
-//                             <button
-//                               onClick={() => alert('Edit: ' + (car._id || ''))}
-//                               className="text-left hover:underline"
-//                             >
-//                               Edit
-//                             </button>
-//                             <button
-//                               onClick={() => handleDelete(car._id)}
-//                               className="text-left text-red-600 hover:underline"
-//                             >
-//                               Delete
-//                             </button>
-//                           </div>
-//                         </td>
-//                       </tr>
-//                     ))
-//                   )}
-//                 </tbody>
-//               </table>
-//             </div>
-//           )}
-//         </div>
-
-//       </div>
-//     </div>
-//   )
-// }
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCars, deleteCar, getCarById } from "../../redux/slice/carSlice";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function CarManagement() {
   const dispatch = useDispatch();
-  const navigatory = useNavigate();
+  const navigate = useNavigate();
 
-  // Redux Store Data
-  const { cars, loading, error } = useSelector((state) => state.cars);
-  console.log("Cars from Redux Store:", cars,loading,error);
+  // Redux State
+  const { cars = [], loading, error } = useSelector((state: any) => state.cars);
 
   // Local State
   const [query, setQuery] = useState("");
 
-  // Fetch cars on page load
+  // Fetch Cars
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
 
-  // Delete Handler
-  const handleDelete = (id) => {
+  // Handlers
+  const handleDelete = (id: string) => {
     if (!window.confirm("Delete this car?")) return;
     dispatch(deleteCar(id)).then(() => {
       dispatch(getAllCars());
-    }).then(()=>{
-      dispatch(getAllCars());
-    })
-  };
-const handleAvailability = (id) => {
-   navigatory(`/dashboard/owner/cars/${id}/availability`)
-  };
-  // View / Edit Handler
-  const handleView = (id) => {
-    // dispatch(getCarById(id)); // You can show modal or navigate to details page
-    // alert(`View Car ID: ${id}`);
-    navigatory(`/dashboard/view-car/${id}`)
+    });
   };
 
-  const handleEdit = (id) => {
-    dispatch(getCarById(id)); // You can pre-fill form in modal
-    navigatory(`/dashboard/EditCar/${id}`);
+  const handleView = (id: string) => {
+    navigate(`/dashboard/view-car/${id}`);
   };
 
-  // 🔍 Search Filter
-  const filteredCars = cars?.filter((car) => {
+  const handleEdit = (id: string) => {
+    dispatch(getCarById(id));
+    navigate(`/dashboard/EditCar/${id}`);
+  };
+
+  const handleAvailability = (id: string) => {
+    navigate(`/dashboard/owner/cars/${id}/availability`);
+  };
+
+  // Filter
+  const filteredCars = cars.filter((car: any) => {
     const t = query.trim().toLowerCase();
     if (!t) return true;
     return (
@@ -199,88 +52,131 @@ const handleAvailability = (id) => {
   });
 
   return (
-    <div className=" min-h-screen bg-pink-50 p-6">
-      <div className="w-full mx-auto">
-        <h2 className="text-gray-500 text-sm mb-4">Manage Car</h2>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
 
-        {/* 🔎 Search */}
-        <div className="flex justify-center mb-8">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search"
-            className="w-3/4 md:w-2/3 bg-white/80 placeholder-gray-400 text-gray-700 text-2xl text-center rounded-xl py-3 shadow-inner border border-gray-200"
-          />
+        {/* 🔝 Header + Search */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+          <h1 className="text-2xl font-semibold text-gray-800">
+            Car Management
+          </h1>
+
+          <div className="relative w-full md:w-80">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search cars..."
+              className="
+                w-full pl-10 pr-4 py-2 rounded-lg
+                border border-gray-300
+                bg-white text-gray-700
+                focus:ring-2 focus:ring-pink-400
+                focus:outline-none
+                shadow-sm
+              "
+            />
+            <svg
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-4.35-4.35M16.65 10.5a6.15 6.15 0 11-12.3 0 6.15 6.15 0 0112.3 0z"
+              />
+            </svg>
+          </div>
         </div>
 
-        {/* 🏷️ Table */}
-        <div className=" bg-white/80 rounded-md p-6 shadow-sm border border-gray-200 ">
+        {/* 📊 Table */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
           {loading ? (
-            <div className="text-center py-8 text-gray-500">Loading...</div>
+            <div className="text-center py-10 text-gray-500">Loading cars...</div>
           ) : error ? (
-            <div className="text-center py-8 text-red-500">{error}</div>
+            <div className="text-center py-10 text-red-500">{error}</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="container-fluid min-w-full border-collapse table-fixed">
-                <thead>
-                  <tr className="bg-pink-100">
-                    <th className="px-3 py-2 border text-left w-16">S.No</th>
-                    <th className="px-3 py-2 border text-left">Car Model</th>
-                    <th className="px-3 py-2 border text-left">Variant</th>
-                    <th className="px-3 py-2 border text-left">Registration Number</th>
-                    <th className="px-3 py-2 border text-left">Car Type</th>
-                    <th className="px-3 py-2 border text-left">Color</th>
-                    <th className="px-3 py-2 border text-left">Seating</th>
-                    <th className="px-3 py-2 border text-left w-40">Action</th>
+              <table className="min-w-full text-sm text-gray-700">
+                <thead className="bg-gray-100 sticky top-0">
+                  <tr>
+                    {[
+                      "S.No",
+                      "Car",
+                      "Variant",
+                      "Reg No",
+                      "Type",
+                      "Color",
+                      "Seats",
+                      "Actions",
+                    ].map((head) => (
+                      <th
+                        key={head}
+                        className="px-4 py-3 text-left font-semibold text-gray-600 uppercase text-xs"
+                      >
+                        {head}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
 
-                <tbody>
-                  {filteredCars?.length === 0 ? (
+                <tbody className="divide-y">
+                  {filteredCars.length === 0 ? (
                     <tr>
-                      <td className="px-3 py-8 border text-center" colSpan={8}>
+                      <td
+                        colSpan={8}
+                        className="text-center py-10 text-gray-500"
+                      >
                         No cars found
                       </td>
                     </tr>
                   ) : (
-                    filteredCars.map((car, idx) => (
-                      <tr key={car._id || idx} className="odd:bg-white even:bg-pink-50">
-                        <td className="px-3 py-5 border align-top">{idx + 1}</td>
-                        <td className="px-3 py-5 border align-top">{car.brand} {car.model}</td>
-                        <td className="px-3 py-5 border align-top">{car.variant}</td>
-                        <td className="px-3 py-5 border align-top">{car.vehicleNumber}</td>
-                        <td className="px-3 py-5 border align-top">{car.carType}</td>
-                        <td className="px-3 py-5 border align-top">{car.color}</td>
-                        <td className="px-3 py-5 border align-top">{car.seats}</td>
+                    filteredCars.map((car: any, idx: number) => (
+                      <tr
+                        key={car._id}
+                        className="hover:bg-gray-50 transition"
+                      >
+                        <td className="px-4 py-4 font-medium">{idx + 1}</td>
+                        <td className="px-4 py-4 font-semibold">
+                          {car.brand} {car.model}
+                        </td>
+                        <td className="px-4 py-4">{car.variant}</td>
+                        <td className="px-4 py-4">{car.vehicleNumber}</td>
+                        <td className="px-4 py-4">{car.carType}</td>
+                        <td className="px-4 py-4">{car.color}</td>
+                        <td className="px-4 py-4">{car.seats}</td>
 
                         {/* 🚦 Actions */}
-                        <td className="px-3 py-5 border align-top">
-                          <div className="flex flex-row gap-4 items-center">
+                        <td className="px-4 py-4">
+                          <div className="flex flex-wrap gap-2">
                             <button
                               onClick={() => handleView(car._id)}
-                              className="text-left hover:underline"
+                              className="px-3 py-1 rounded-md text-xs bg-blue-50 text-blue-600 hover:bg-blue-100"
                             >
                               View
                             </button>
 
                             <button
                               onClick={() => handleEdit(car._id)}
-                              className="text-left hover:underline"
+                              className="px-3 py-1 rounded-md text-xs bg-yellow-50 text-yellow-600 hover:bg-yellow-100"
                             >
                               Edit
                             </button>
 
                             <button
-                              onClick={() => handleDelete(car._id)}
-                              className="text-left text-red-600 hover:underline"
-                            >
-                              Delete
-                            </button>
-                             <button
                               onClick={() => handleAvailability(car._id)}
-                              className="text-left text-red-600 hover:underline"
+                              className="px-3 py-1 rounded-md text-xs bg-green-50 text-green-600 hover:bg-green-100"
                             >
                               Availability
+                            </button>
+
+                            <button
+                              onClick={() => handleDelete(car._id)}
+                              className="px-3 py-1 rounded-md text-xs bg-red-50 text-red-600 hover:bg-red-100"
+                            >
+                              Delete
                             </button>
                           </div>
                         </td>
@@ -288,11 +184,11 @@ const handleAvailability = (id) => {
                     ))
                   )}
                 </tbody>
-
               </table>
             </div>
           )}
         </div>
+
       </div>
     </div>
   );

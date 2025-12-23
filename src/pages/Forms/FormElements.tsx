@@ -10,6 +10,7 @@ import SelectInputs from "../../components/form/form-elements/SelectInputs";
 import TextAreaInput from "../../components/form/form-elements/TextAreaInput";
 import InputStates from "../../components/form/form-elements/InputStates";
 import PageMeta from "../../components/common/PageMeta";
+import PickupDetails from "../../components/form/form-elements/PickupDetails";
 
 export default function FormElements() {
   return (
@@ -28,6 +29,7 @@ export default function FormElements() {
         </div>
         <div className="space-y-6">
           <InputGroup />
+          <PickupDetails />
           <FileInputExample />
           <CheckboxComponents />
           <RadioButtons />

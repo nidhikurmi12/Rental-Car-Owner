@@ -18,36 +18,34 @@ export default function InputGroup() {
     <ComponentCard title="Input Group">
       <div className="space-y-6">
         <div>
-          <Label>Email</Label>
-          <div className="relative">
+          <Label>Pricing (₹)</Label>
+          <div className="flex gap-3">
             <Input
               placeholder="info@gmail.com"
-              type="text"
-              className="pl-[62px]"
+              type="number"
             />
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400">
-              <EnvelopeIcon className="size-6" />
-            </span>
+           <Input
+              placeholder="info@gmail.com"
+              type="number"
+            />
+            <Input
+              placeholder="info@gmail.com"
+              type="number"
+            />
+            <Input
+              placeholder="info@gmail.com"
+              type="number"
+            />
           </div>
         </div>
         <div>
-          <Label>Phone</Label>
-          <PhoneInput
-            selectPosition="start"
-            countries={countries}
-            placeholder="+1 (555) 000-0000"
-            onChange={handlePhoneNumberChange}
-          />
+          <Label>Security Deposit (₹)</Label>
+          <Input
+              placeholder="info@gmail.com"
+              type="number"
+            />
         </div>{" "}
-        <div>
-          <Label>Phone</Label>
-          <PhoneInput
-            selectPosition="end"
-            countries={countries}
-            placeholder="+1 (555) 000-0000"
-            onChange={handlePhoneNumberChange}
-          />
-        </div>
+       
       </div>
     </ComponentCard>
   );

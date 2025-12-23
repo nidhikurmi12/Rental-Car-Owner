@@ -6,7 +6,7 @@ import Select from "../Select";
 import { EyeCloseIcon, EyeIcon, TimeIcon } from "../../../icons";
 import DatePicker from "../date-picker.tsx";
 
-export default function DefaultInputs() {
+export default function PickupDetails() {
   const [showPassword, setShowPassword] = useState(false);
   const options = [
     { value: "marketing", label: "Hatchback" },
@@ -37,63 +37,29 @@ export default function DefaultInputs() {
     <ComponentCard title="Default Inputs">
       <div className="space-y-6">
         <div>
-          <Label htmlFor="input">Car Name</Label>
+          <Label htmlFor="input">Address</Label>
           <Input type="text" id="input" />
         </div>
         <div>
-          <Label htmlFor="inputTwo">Car Model</Label>
+          <Label htmlFor="inputTwo">State </Label>
           <Input type="text" id="inputTwo" placeholder="info@gmail.com" />
         </div>
-        <div>
-          <Label>Car Type </Label>
-          <Select
-          options={options}
-          placeholder="Select an option"
-          onChange={handleSelectChange}
-          className="dark:bg-dark-900"
-          />
-          </div>
+        
           <div>
-            <Label htmlFor="inputTwo">Variant</Label>
+            <Label htmlFor="inputTwo">City</Label>
             <Input type="text" id="inputTwo" placeholder="info@gmail.com" />
           </div>
            <div>
-            <Label htmlFor="inputTwo">Registration Number</Label>
+            <Label htmlFor="inputTwo">Pincode</Label>
             <Input type="text" id="inputTwo" placeholder="info@gmail.com" />
           </div>
             <div>
-            <Label htmlFor="inputTwo">Year of Manufacture</Label>
+            <Label htmlFor="inputTwo">Latitude (optional)</Label>
             <Input type="number" id="inputTwo" placeholder="info@gmail.com" />
           </div>
            <div>
-            <Label htmlFor="inputTwo">Color</Label>
+            <Label htmlFor="inputTwo">Longitude (optional)</Label>
             <Input type="number" id="inputTwo" placeholder="info@gmail.com" />
-          </div>
-           <div>
-            <Label htmlFor="inputTwo">Color</Label>
-            <Input type="number" id="inputTwo" placeholder="info@gmail.com" />
-          </div>
-           <div>
-          <Label>Transmission </Label>
-          <Select
-          options={Transmission}
-          placeholder="Select an option"
-          onChange={handleSelectChange}
-          className="dark:bg-dark-900"
-          />
-          </div>
-          <div>
-            <Label htmlFor="inputTwo">Seating capacity</Label>
-            <Input type="number" id="inputTwo" placeholder="info@gmail.com" />
-          </div>
-          <div>
-            <Label htmlFor="inputTwo"> Fuel Type</Label>
-           <Select
-          options={FuelType}
-          placeholder="Select an option"
-          onChange={handleSelectChange}
-          className="dark:bg-dark-900"
-          />
           </div>
       </div>
     </ComponentCard>
