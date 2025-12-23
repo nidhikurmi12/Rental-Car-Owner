@@ -67,9 +67,9 @@ const navItems: NavItem[] = [
     icon: <PageIcon />,
     subItems: [
       { name: "Earning Report", path: "/earning", pro: false },
-      { name: "Commission Deduction Details", path: "", pro: false },
+      { name: "Commission Deduction Details", path: "/earning/commition", pro: false },
             { name: "Payment Settlement History", path: "/payment", pro: false },
-                  { name: "GST Invoice Download", path: "", pro: false },
+                  { name: "GST Invoice Download", path: "/earning/gstinvoice", pro: false },
     ],
   },
 ];

@@ -27,6 +27,8 @@ import CancelledBooking from "./pages/Booking Management/CancelledBooking"
 import UploadVehicalCondition from "./pages/Booking Management/UploadVehicalCondition"
 import OwnerEarningsPage from "./pages/EarningAndPayment/EarningReport";
 import PaymentSettlementHistory from "./pages/EarningAndPayment/PaymentSettlementHistory";
+import CommissionDeductionDetails from "./pages/EarningAndPayment/CommissionDeductionDetails";
+import GSTInvoice from "./pages/EarningAndPayment/GSTInvoice";
 export default function App() {
   return (
     <>
@@ -63,6 +65,8 @@ export default function App() {
             {/* Earning And Payments */}
              <Route path="/earning" element={<OwnerEarningsPage />} />
               <Route path="/payment" element={<PaymentSettlementHistory />} />
+             <Route path="/earning/commition" element={<CommissionDeductionDetails/>} />
+             <Route path="/earning/gstinvoice" element={<GSTInvoice/>} />
 
              
 
