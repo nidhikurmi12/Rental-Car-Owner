@@ -8,17 +8,16 @@ export default function CheckboxComponents() {
   const [isCheckedDisabled, setIsCheckedDisabled] = useState(false);
   const data =[
     "AC",
-"Bluetooth",
-"GPS",
-"Sunroof",
-"Leather Seats",
-"Backup Camera",
-"USB Port",
-"Keyless Entry"
-
+    "Bluetooth",
+    "GPS",
+    "Sunroof",
+    "Leather Seats",
+    "Backup Camera",
+    "USB Port",
+    "Keyless Entry"
   ]
   return (
-    <ComponentCard title="Checkbox">
+    <ComponentCard title="Features">
       <div className="flex flex-wrap items-center gap-4">
        {
         data.map((item)=>(

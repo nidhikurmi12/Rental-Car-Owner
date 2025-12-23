@@ -44,7 +44,7 @@ const navItems: NavItem[] = [
       { name: "Add Cars", path: "/add-cars", pro: false },
       { name: "Manage Cars", path: "/car-management", pro: false },
       { name: "Car Availability", path: "/calendar", pro: false },
-      { name: "Pricing", path: "/", pro: false },
+      { name: "Pricing", path: "/car-pricing", pro: false },
 
     ],
   },
@@ -66,9 +66,9 @@ const navItems: NavItem[] = [
     name: "Earnings & Payments",
     icon: <PageIcon />,
     subItems: [
-      { name: "Earning Report", path: "/", pro: false },
+      { name: "Earning Report", path: "/earning", pro: false },
       { name: "Commission Deduction Details", path: "", pro: false },
-            { name: "Payment Settlement History", path: "", pro: false },
+            { name: "Payment Settlement History", path: "/payment", pro: false },
                   { name: "GST Invoice Download", path: "", pro: false },
     ],
   },

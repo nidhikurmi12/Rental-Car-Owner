@@ -34,7 +34,7 @@ export default function PickupDetails() {
   };
 
   return (
-    <ComponentCard title="Default Inputs">
+    <ComponentCard title="Pickup Location">
       <div className="space-y-6">
         <div>
           <Label htmlFor="input">Address</Label>

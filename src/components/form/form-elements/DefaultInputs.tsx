@@ -34,7 +34,7 @@ export default function DefaultInputs() {
   };
 
   return (
-    <ComponentCard title="Default Inputs">
+    <ComponentCard title="Basic Car Details">
       <div className="space-y-6">
         <div>
           <Label htmlFor="input">Car Name</Label>
