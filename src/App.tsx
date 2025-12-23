@@ -19,6 +19,13 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import CarManagement from "./pages/Car Management/CarManagement";
+import AllBookingList from "./pages/Booking Management/AllBookingList"
+import CompletedBooking from "./pages/Booking Management/CompletedBooking"
+import OngoingBooking from "./pages/Booking Management/OngoingBooking"
+import ReturnStatusUpdate from "./pages/Booking Management/ReturnStatusUpdate"
+import UpcomingBooking from "./pages/Booking Management/UpcomingBooking"
+import CancelledBooking from "./pages/Booking Management/CancelledBooking"
+import UploadVehicalCondition from "./pages/Booking Management/UploadVehicalCondition"
 
 export default function App() {
   return (
@@ -42,15 +49,16 @@ export default function App() {
             <Route path="/car-management" element={<CarManagement />} />
 
             {/* Ui Elements */}
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/avatars" element={<Avatars />} />
-            <Route path="/badge" element={<Badges />} />
-            <Route path="/buttons" element={<Buttons />} />
-            <Route path="/images" element={<Images />} />
-            <Route path="/videos" element={<Videos />} />
+            <Route path="/cars/allbookings" element={<AllBookingList />} />
+            <Route path="/cars/upcoming" element={<UpcomingBooking />} />
+            <Route path="/cars/Ongoing" element={<OngoingBooking />} />
+            <Route path="/cars/completed" element={<CompletedBooking />} />
+            <Route path="/cars/cancelled" element={<CancelledBooking />} />
+            <Route path="/cars/return-status" element={<ReturnStatusUpdate />} />
+            <Route path="/cars/vehical/upload" element={<UploadVehicalCondition />} />
 
             {/* Charts */}
-            <Route path="/line-chart" element={<LineChart />} />
+            <Route path="/cars/vehical/upload" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
           </Route>
 
