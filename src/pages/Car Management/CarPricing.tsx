@@ -81,12 +81,12 @@ export default function CarPricingPage() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6 text-gray-700">Car Pricing Management</h2>
+    <div className="p-6 bg-gray-50 min-h-screen dark:bg-gray-900">
+      <h2 className="text-2xl font-bold mb-6 text-gray-700 dark:text-gray-200">Car Pricing Management</h2>
 
       {/* Add / Edit Form */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h3 className="text-lg font-semibold mb-4">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8 dark:bg-gray-800">
+        <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">
           {editId !== null ? "Edit Pricing" : "Add New Pricing"}
         </h3>
 
@@ -97,7 +97,7 @@ export default function CarPricingPage() {
             name="carName"
             value={form.carName}
             onChange={handleChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 "
           />
           <input
             type="number"
@@ -105,7 +105,7 @@ export default function CarPricingPage() {
             name="hourly"
             value={form.hourly}
             onChange={handleChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
           />
           <input
             type="number"
@@ -113,7 +113,7 @@ export default function CarPricingPage() {
             name="daily"
             value={form.daily}
             onChange={handleChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
           />
           <input
             type="number"
@@ -121,7 +121,7 @@ export default function CarPricingPage() {
             name="weekly"
             value={form.weekly}
             onChange={handleChange}
-            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
           />
         </div>
 
@@ -134,9 +134,9 @@ export default function CarPricingPage() {
       </div>
 
       {/* Pricing List Table */}
-      <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+      <div className="bg-white rounded-lg shadow-md overflow-x-auto dark:bg-gray-800">
         <table className="min-w-full table-auto">
-          <thead className="bg-pink-100 text-left">
+          <thead className="bg-pink-100 text-left dark:bg-gray-700 dark:text-gray-200">
             <tr>
               <th className="px-4 py-2">Car Name</th>
               <th className="px-4 py-2">Hourly ($)</th>
@@ -149,7 +149,7 @@ export default function CarPricingPage() {
             {pricingList.map((price) => (
               <tr
                 key={price.id}
-                className="even:bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200 dark:even:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
               >
                 <td className="px-4 py-3">{price.carName}</td>
                 <td className="px-4 py-3">{price.hourly}</td>

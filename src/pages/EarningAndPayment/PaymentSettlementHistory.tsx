@@ -50,20 +50,20 @@ export default function PaymentSettlementHistory() {
   const pending = total - paid;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-8">
       <div className="max-w-7xl mx-auto space-y-10">
 
-        {/* 🔝 Header */}
+        {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
             Payment Settlement History
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Track your earnings and settlement payments
           </p>
         </div>
 
-        {/* 💎 Summary Cards */}
+        {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StatCard
             title="Total Earnings"
@@ -85,17 +85,17 @@ export default function PaymentSettlementHistory() {
           />
         </div>
 
-        {/* 📄 Table */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="px-6 py-4 border-b">
-            <h2 className="text-lg font-semibold text-gray-700 flex items-center gap-2">
+        {/* Table */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
               <FiCreditCard /> Settlement Records
             </h2>
           </div>
 
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
-              <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
+              <thead className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase text-xs">
                 <tr>
                   <th className="px-6 py-4 text-left">Date</th>
                   <th className="px-6 py-4 text-left">Booking</th>
@@ -105,21 +105,25 @@ export default function PaymentSettlementHistory() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {settlements.map((s) => (
                   <tr
                     key={s.id}
-                    className="hover:bg-gray-50 transition"
+                    className="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                   >
-                    <td className="px-6 py-4">{s.date}</td>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
+                      {s.date}
+                    </td>
 
-                    <td className="px-6 py-4 font-medium text-indigo-600">
+                    <td className="px-6 py-4 font-medium text-indigo-600 dark:text-indigo-400">
                       {s.bookingId}
                     </td>
 
-                    <td className="px-6 py-4">{s.carName}</td>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
+                      {s.carName}
+                    </td>
 
-                    <td className="px-6 py-4 font-semibold">
+                    <td className="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100">
                       ${s.amount}
                     </td>
 
@@ -145,7 +149,7 @@ export default function PaymentSettlementHistory() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="text-center py-10 text-gray-400"
+                      className="text-center py-10 text-gray-400 dark:text-gray-500"
                     >
                       No settlement records found
                     </td>
@@ -201,8 +205,8 @@ function StatusBadge({
 }) {
   const styles =
     color === "green"
-      ? "bg-green-100 text-green-700"
-      : "bg-yellow-100 text-yellow-700";
+      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+      : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300";
 
   return (
     <span

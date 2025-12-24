@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCars, deleteCar, getCarById } from "../../redux/slice/carSlice";
 import { useNavigate } from "react-router-dom";
 
-export default function AllBookingList() {
+export default function CarManagement() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,12 +52,12 @@ export default function AllBookingList() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
 
         {/* 🔝 Header + Search */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-          <h1 className="text-2xl font-semibold text-gray-800">
+          <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
             Car Management
           </h1>
 
@@ -73,6 +73,10 @@ export default function AllBookingList() {
                 focus:ring-2 focus:ring-pink-400
                 focus:outline-none
                 shadow-sm
+                dark:bg-white/[0.03]
+                dark:border-gray-700
+                dark:text-gray-300
+                dark:focus:ring-pink-500
               "
             />
             <svg
@@ -92,15 +96,15 @@ export default function AllBookingList() {
         </div>
 
         {/* 📊 Table */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden dark:bg-gray-800 dark:border-gray-700">
           {loading ? (
             <div className="text-center py-10 text-gray-500">Loading cars...</div>
           ) : error ? (
             <div className="text-center py-10 text-red-500">{error}</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full text-sm text-gray-700">
-                <thead className="bg-gray-100 sticky top-0">
+              <table className="min-w-full text-sm text-gray-700 ">
+                <thead className="bg-gray-100 sticky top-0 dark:bg-gray-800 ">
                   <tr>
                     {[
                       "S.No",
@@ -114,7 +118,7 @@ export default function AllBookingList() {
                     ].map((head) => (
                       <th
                         key={head}
-                        className="px-4 py-3 text-left font-semibold text-gray-600 uppercase text-xs"
+                        className="px-4 py-3 text-left font-semibold text-gray-600 uppercase text-xs dark:text-gray-200"
                       >
                         {head}
                       </th>
@@ -136,7 +140,7 @@ export default function AllBookingList() {
                     filteredCars.map((car: any, idx: number) => (
                       <tr
                         key={car._id}
-                        className="hover:bg-gray-50 transition"
+                        className="hover:bg-gray-50 transition duration-200 dark:hover:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:bg-gray-900"
                       >
                         <td className="px-4 py-4 font-medium">{idx + 1}</td>
                         <td className="px-4 py-4 font-semibold">

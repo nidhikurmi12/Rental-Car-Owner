@@ -54,7 +54,6 @@ export default function FormElements() {
   return (
     <div className="p-6">
       <Tabs tabs={tabs} />
-      {/* You can keep your next/previous buttons here if needed */}
     </div>
   );
 }

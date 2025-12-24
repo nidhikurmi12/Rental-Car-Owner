@@ -1,12 +1,13 @@
-import { defineConfig } from "vite";
+import svgr from "vite-plugin-svgr";  
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
-import svgr from "vite-plugin-svgr";
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    react(),
-    svgr({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, ".", "VITE_");
+
+  return {
+    plugins: [react(),
+      svgr({
       svgrOptions: {
         icon: true,
         // This will transform your SVG to a React component
@@ -14,5 +15,9 @@ export default defineConfig({
         namedExport: "ReactComponent",
       },
     }),
-  ],
+    ],
+    define: {
+      __API_ENDPOINT__: JSON.stringify(env.VITE_API_ENDPOINT),
+    },
+  };
 });

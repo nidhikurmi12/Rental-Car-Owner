@@ -43,7 +43,7 @@ export default function VehicleImageGallery() {
   const renderGallery = (images: ImageItem[], type: "exterior" | "interior") => (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {images.map((img, idx) => (
-        <div key={idx} className="relative w-full h-32 border border-gray-300 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+        <div key={idx} className="relative w-full h-32 border border-gray-300 rounded-lg overflow-hidden bg-gray-50 dark:bg-white/[0.03] flex items-center justify-center">
           {img.previewUrl ? (
             <>
               <img
@@ -79,12 +79,12 @@ export default function VehicleImageGallery() {
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-lg font-semibold text-gray-700 mb-2">Exterior Images</h3>
+        <h3 className="text-lg font-semibold text-gray-700 mb-2 dark:text-gray-300">Exterior Images</h3>
         {renderGallery(exteriorImages, "exterior")}
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-gray-700 mb-2">Interior Images</h3>
+        <h3 className="text-lg font-semibold text-gray-700 mb-2 dark:text-gray-300">Interior Images</h3>
         {renderGallery(interiorImages, "interior")}
       </div>
     </div>

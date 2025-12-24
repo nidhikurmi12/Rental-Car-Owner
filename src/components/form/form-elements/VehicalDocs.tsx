@@ -37,21 +37,21 @@ export default function VehicleDocumentsUpload() {
   };
 
   return (
-    <div className="w-full p-6">
-      <h2 className="text-2xl font-bold text-center mb-8 text-gray-700">
+    <div className="w-full p-6  ">
+      <h2 className="text-2xl font-bold text-center mb-8 text-gray-700 dark:text-gray-200">
         Vehicle Documents Upload
       </h2>
-      <div className="overflow-x-auto rounded-lg border border-gray-300 shadow-sm bg-white">
+      <div className="overflow-x-auto rounded-lg border border-gray-300 dark:border-gray-800 shadow-sm bg-white dark:bg-white/[0.03]">
         <table className="w-full min-w-[600px] divide-y divide-gray-200">
-          <thead className="bg-gradient-to-r from-gray-300 via-gray-300 to-gray-300">
+          <thead className="dark:bg-white/[0.03] bg-gray-50">
             <tr>
-              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide">
+              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide dark:text-gray-200">
                 Document Name
               </th>
-              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide">
+              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide dark:text-gray-200">
                 Upload
               </th>
-              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide">
+              <th className="text-left px-6 py-4 font-semibold text-black tracking-wide dark:text-gray-200">
                 Preview
               </th>
             </tr>
@@ -61,11 +61,11 @@ export default function VehicleDocumentsUpload() {
             {documents.map(({ id, name, file, previewUrl }) => (
               <tr
                 key={id}
-                className="hover:bg-pink-50 transition-colors duration-200"
+                className="hover:bg-pink-50 transition-colors duration-200 dark:hover:bg-gray-800 "
               >
-                <td className="px-6 py-4 text-gray-800 font-medium">{name}</td>
+                <td className="px-6 py-4 text-gray-800 font-medium dark:text-gray-200">{name}</td>
 
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 dark:text-gray-200">
                   <label
                     htmlFor={`upload-${id}`}
                     className="
@@ -79,6 +79,9 @@ export default function VehicleDocumentsUpload() {
                       shadow-sm
                       select-none
                       w-max
+                      dark:bg-white/[0.03]
+                      dark:text-gray-300
+                      dark:border-gray-700
                     "
                   >
                     <FiUpload className="w-5 h-5" />
@@ -92,7 +95,7 @@ export default function VehicleDocumentsUpload() {
                     className="hidden"
                   />
                   {file && (
-                    <p className="mt-1 text-sm text-gray-600 truncate max-w-xs" title={file.name}>
+                    <p className="mt-1 text-sm text-gray-600 truncate max-w-xs dark:text-gray-300" title={file.name}>
                       {file.name}
                     </p>
                   )}

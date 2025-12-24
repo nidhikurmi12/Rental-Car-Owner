@@ -2,18 +2,24 @@ import React from "react";
 
 export default function GSTInvoice() {
   return (
-    <div className="p-8 bg-white text-sm print:p-0 print:shadow-none">
+    <div className="p-8 text-sm bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 print:bg-white print:text-black print:p-0 print:shadow-none">
       {/* Header */}
-      <div className="flex justify-between border-b pb-4 mb-4">
+      <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
         <div>
-          <h1 className="text-xl font-bold text-[#7A0000]">
+          <h1 className="text-xl font-bold text-[#7A0000] dark:text-red-400 print:text-[#7A0000]">
             TAX INVOICE
           </h1>
-          <p className="text-gray-600">Commission Deduction</p>
+          <p className="text-gray-600 dark:text-gray-400 print:text-gray-600">
+            Commission Deduction
+          </p>
         </div>
-        <div className="text-right">
-          <p><strong>Invoice No:</strong> INV-001</p>
-          <p><strong>Date:</strong> 23 Dec 2025</p>
+        <div className="text-right text-sm">
+          <p>
+            <strong>Invoice No:</strong> INV-001
+          </p>
+          <p>
+            <strong>Date:</strong> 23 Dec 2025
+          </p>
         </div>
       </div>
 
@@ -35,29 +41,40 @@ export default function GSTInvoice() {
       </div>
 
       {/* Invoice Table */}
-      <table className="w-full border-collapse border text-sm mb-6">
-        <thead className="bg-gray-100">
+      <table className="w-full border-collapse border border-gray-300 dark:border-gray-700 print:border-gray-300 text-sm mb-6">
+        <thead className="bg-gray-100 dark:bg-gray-800 print:bg-gray-100">
           <tr>
-            <th className="border p-2 text-left">Description</th>
-            <th className="border p-2 text-right">Amount (₹)</th>
+            <th className="border border-gray-300 dark:border-gray-700 p-2 text-left">
+              Description
+            </th>
+            <th className="border border-gray-300 dark:border-gray-700 p-2 text-right">
+              Amount (₹)
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="border p-2">Commission Charges</td>
-            <td className="border p-2 text-right">5,000</td>
-          </tr>
-          <tr>
-            <td className="border p-2">CGST (9%)</td>
-            <td className="border p-2 text-right">450</td>
-          </tr>
-          <tr>
-            <td className="border p-2">SGST (9%)</td>
-            <td className="border p-2 text-right">450</td>
-          </tr>
+          {[
+            ["Commission Charges", "5,000"],
+            ["CGST (9%)", "450"],
+            ["SGST (9%)", "450"],
+          ].map(([label, value]) => (
+            <tr key={label}>
+              <td className="border border-gray-300 dark:border-gray-700 p-2">
+                {label}
+              </td>
+              <td className="border border-gray-300 dark:border-gray-700 p-2 text-right">
+                {value}
+              </td>
+            </tr>
+          ))}
+
           <tr className="font-semibold">
-            <td className="border p-2">Total</td>
-            <td className="border p-2 text-right">5,900</td>
+            <td className="border border-gray-300 dark:border-gray-700 p-2">
+              Total
+            </td>
+            <td className="border border-gray-300 dark:border-gray-700 p-2 text-right">
+              5,900
+            </td>
           </tr>
         </tbody>
       </table>
@@ -72,7 +89,7 @@ export default function GSTInvoice() {
       <div className="mt-6 print:hidden">
         <button
           onClick={() => window.print()}
-          className="px-4 py-2 bg-[#7A0000] text-white rounded-md"
+          className="px-4 py-2 rounded-md bg-[#7A0000] hover:bg-[#600000] text-white transition"
         >
           Download / Print Invoice
         </button>
