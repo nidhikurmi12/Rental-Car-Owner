@@ -2,6 +2,7 @@ import axios from "axios";
 import EnvVars from "../config/EnVars.conf";
 const Request = axios.create({
   baseURL: EnvVars.API_ENDPOINT,
+   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },

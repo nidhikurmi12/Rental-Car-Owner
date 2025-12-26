@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCars, deleteCar, getCarById } from "../../redux/slice/carSlice";
 import { useNavigate } from "react-router-dom";
-
+import { FaEye } from "react-icons/fa";
+import { PencilIcon } from "../../icons";
+import { MdDelete, MdOutlineEventAvailable } from "react-icons/md";
 export default function CarManagement() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   // Redux State
   const { cars = [], loading, error } = useSelector((state: any) => state.cars);
-
   // Local State
   const [query, setQuery] = useState("");
-
   // Fetch Cars
   useEffect(() => {
     dispatch(getAllCars());
@@ -27,16 +26,16 @@ export default function CarManagement() {
   };
 
   const handleView = (id: string) => {
-    navigate(`/dashboard/view-car/${id}`);
+    navigate(`/view-car/${id}`);
   };
 
   const handleEdit = (id: string) => {
     dispatch(getCarById(id));
-    navigate(`/dashboard/EditCar/${id}`);
+    navigate(`/add-cars/${id}`);
   };
 
   const handleAvailability = (id: string) => {
-    navigate(`/dashboard/owner/cars/${id}/availability`);
+    navigate(`/cars/${id}/availability`);
   };
 
   // Filter
@@ -46,11 +45,11 @@ export default function CarManagement() {
     return (
       (car.brand || "").toLowerCase().includes(t) ||
       (car.model || "").toLowerCase().includes(t) ||
-      (car.variant || "").toLowerCase().includes(t) ||
+      (car.fuelType || "").toLowerCase().includes(t) ||
       (car.vehicleNumber || "").toLowerCase().includes(t)
     );
   });
-
+console.log(filteredCars,"cars jj")
   return (
     <div className="min-h-screen bg-gray-50 p-6 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
@@ -109,7 +108,7 @@ export default function CarManagement() {
                     {[
                       "S.No",
                       "Car",
-                      "Variant",
+                      "FuelType",
                       "Reg No",
                       "Type",
                       "Color",
@@ -146,7 +145,7 @@ export default function CarManagement() {
                         <td className="px-4 py-4 font-semibold">
                           {car.brand} {car.model}
                         </td>
-                        <td className="px-4 py-4">{car.variant}</td>
+                        <td className="px-4 py-4">{car.fuelType}</td>
                         <td className="px-4 py-4">{car.vehicleNumber}</td>
                         <td className="px-4 py-4">{car.carType}</td>
                         <td className="px-4 py-4">{car.color}</td>
@@ -157,30 +156,31 @@ export default function CarManagement() {
                           <div className="flex flex-wrap gap-2">
                             <button
                               onClick={() => handleView(car._id)}
-                              className="px-3 py-1 rounded-md text-xs bg-blue-50 text-blue-600 hover:bg-blue-100"
+                              className="px-2 py-1 rounded-md text-xs bg-blue-50 text-blue-600 hover:bg-blue-100"
                             >
-                              View
+                             <FaEye size={20}/>
                             </button>
 
                             <button
                               onClick={() => handleEdit(car._id)}
-                              className="px-3 py-1 rounded-md text-xs bg-yellow-50 text-yellow-600 hover:bg-yellow-100"
+                              className="px-2 py-1 rounded-md text-xs bg-yellow-50 text-yellow-600 hover:bg-yellow-100"
                             >
-                              Edit
+                              <PencilIcon size={20}/>
                             </button>
 
                             <button
                               onClick={() => handleAvailability(car._id)}
-                              className="px-3 py-1 rounded-md text-xs bg-green-50 text-green-600 hover:bg-green-100"
+                              className="px-2 py-1 rounded-md text-xs bg-green-50 text-green-600 hover:bg-green-100"
                             >
-                              Availability
+                              <MdOutlineEventAvailable size={20}/>
+                            
                             </button>
 
                             <button
                               onClick={() => handleDelete(car._id)}
-                              className="px-3 py-1 rounded-md text-xs bg-red-50 text-red-600 hover:bg-red-100"
+                              className="px-2 py-1 rounded-md text-xs bg-red-50 text-red-600 hover:bg-red-100"
                             >
-                              Delete
+                            <MdDelete size={20}/>
                             </button>
                           </div>
                         </td>

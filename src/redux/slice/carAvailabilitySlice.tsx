@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Request from '../../lib/axios';
 
 const API_BASE = 'https://zoomridebackend-2.onrender.com/api/cars';
 
@@ -18,7 +19,7 @@ export const fetchCarAvailability = createAsyncThunk(
   async (carId, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${API_BASE}/availability/${carId}/availability`, {
+      const res = await Request.get(`/cars/availability/${carId}/availability`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -44,8 +45,8 @@ export const blockCarDates = createAsyncThunk(
       const token = localStorage.getItem('token');
       const payload = { dates: dates.map((d) => d.toISOString()) };
 
-      const res = await axios.post(
-        `${API_BASE}/availability/${carId}/block-dates`,
+      const res = await Request.post(
+        `/cars/availability/${carId}/block-dates`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -69,8 +70,8 @@ export const unblockCarDates = createAsyncThunk(
       const token = localStorage.getItem('token');
       const payload = { dates: dates.map((d) => d.toISOString()) };
 
-      const res = await axios.post(
-        `${API_BASE}/availability/${carId}/unblock-dates`,
+      const res = await Request.post(
+        `/cars/availability/${carId}/unblock-dates`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -92,8 +93,8 @@ export const updateCarStatus = createAsyncThunk(
   async ({ carId, availability }, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.patch(
-        `${API_BASE}/availability/${carId}/status`,
+      const res = await Request.patch(
+        `/cars/availability/${carId}/status`,
         { availability },
         { headers: { Authorization: `Bearer ${token}` } }
       );

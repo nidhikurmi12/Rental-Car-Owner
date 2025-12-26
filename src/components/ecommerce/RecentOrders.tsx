@@ -6,76 +6,124 @@ import {
   TableRow,
 } from "../ui/table";
 import Badge from "../ui/badge/Badge";
+import { Calendar, MapPin, Car, User, CreditCard, Shield } from "lucide-react";
+import { format } from "date-fns";
 
-// Define the TypeScript interface for the table rows
-interface Product {
-  id: number; // Unique identifier for each product
-  name: string; // Product name
-  variants: string; // Number of variants (e.g., "1 Variant", "2 Variants")
-  category: string; // Category of the product
-  price: string; // Price of the product (as a string with currency symbol)
-  // status: string; // Status of the product
-  image: string; // URL or path to the product image
-  status: "Delivered" | "Pending" | "Canceled"; // Status of the product
+// Define the TypeScript interface for the booking data
+interface Booking {
+  _id: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    phone: string;
+  };
+  car: {
+    _id: string;
+    brand: string;
+    model: string;
+    images: Array<{
+      url: string;
+      _id: string;
+    }>;
+    pricing: {
+      hourly: number;
+      daily: number;
+      weekly: number;
+      monthly: number;
+    };
+  };
+  pickupLocation: {
+    address: string;
+    city: string;
+  };
+  dropLocation: {
+    address: string;
+    city: string;
+  };
+  startDate: string;
+  endDate: string;
+  totalAmount: number;
+  securityDeposit: number;
+  status: "pending" | "confirmed" | "completed" | "cancelled";
+  paymentStatus: "pending" | "paid";
+  paymentMethod: string;
+  totalDays: number;
+  totalHours: number;
+  createdAt: string;
+  updatedAt: string;
+  securitySettlement?: {
+    totalDeductions: number;
+    damageCharge: number;
+    fuelCharge: number;
+    lateReturnCharge: number;
+    extraKmCharge: number;
+    otherCharge: number;
+    refundAmount: number;
+    status: string;
+  };
 }
 
-// Define the table data using the interface
-const tableData: Product[] = [
-  {
-    id: 1,
-    name: "MacBook Pro 13”",
-    variants: "2 Variants",
-    category: "Laptop",
-    price: "$2399.00",
-    status: "Delivered",
-    image: "/images/product/product-01.jpg", // Replace with actual image URL
-  },
-  {
-    id: 2,
-    name: "Apple Watch Ultra",
-    variants: "1 Variant",
-    category: "Watch",
-    price: "$879.00",
-    status: "Pending",
-    image: "/images/product/product-02.jpg", // Replace with actual image URL
-  },
-  {
-    id: 3,
-    name: "iPhone 15 Pro Max",
-    variants: "2 Variants",
-    category: "SmartPhone",
-    price: "$1869.00",
-    status: "Delivered",
-    image: "/images/product/product-03.jpg", // Replace with actual image URL
-  },
-  {
-    id: 4,
-    name: "iPad Pro 3rd Gen",
-    variants: "2 Variants",
-    category: "Electronics",
-    price: "$1699.00",
-    status: "Canceled",
-    image: "/images/product/product-04.jpg", // Replace with actual image URL
-  },
-  {
-    id: 5,
-    name: "AirPods Pro 2nd Gen",
-    variants: "1 Variant",
-    category: "Accessories",
-    price: "$240.00",
-    status: "Delivered",
-    image: "/images/product/product-05.jpg", // Replace with actual image URL
-  },
-];
+interface RecentOrdersProps {
+  latestBookings: Booking[];
+}
 
-export default function RecentOrders() {
+export default function RecentOrders({ latestBookings }: RecentOrdersProps) {
+  // Format date function
+  const formatDate = (dateString: string) => {
+    try {
+      return format(new Date(dateString), "MMM dd, yyyy");
+    } catch (error) {
+      return "Invalid Date";
+    }
+  };
+
+  // Format currency
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+console.log(latestBookings,"latestBookings")
+  // Get status color
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "success";
+      case "confirmed":
+        return "primary";
+      case "pending":
+        return "warning";
+      case "cancelled":
+        return "error";
+      default:
+        return "default";
+    }
+  };
+
+  // Get payment status color
+  const getPaymentStatusColor = (status: string) => {
+    switch (status) {
+      case "paid":
+        return "success";
+      case "pending":
+        return "warning";
+      default:
+        return "default";
+    }
+  };
+
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6">
       <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-            Latest Request
+            Latest Bookings
           </h3>
+         
         </div>
 
         <div className="flex items-center gap-3">
@@ -122,6 +170,7 @@ export default function RecentOrders() {
           </button>
         </div>
       </div>
+      
       <div className="max-w-full overflow-x-auto">
         <Table>
           {/* Table Header */}
@@ -131,19 +180,25 @@ export default function RecentOrders() {
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Products
+                Car Details
               </TableCell>
               <TableCell
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Category
+                Customer
               </TableCell>
               <TableCell
                 isHeader
                 className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
-                Price
+                Trip Dates
+              </TableCell>
+              <TableCell
+                isHeader
+                className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+              >
+                Amount
               </TableCell>
               <TableCell
                 isHeader
@@ -151,58 +206,147 @@ export default function RecentOrders() {
               >
                 Status
               </TableCell>
+              <TableCell
+                isHeader
+                className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+              >
+                Payment
+              </TableCell>
             </TableRow>
           </TableHeader>
 
           {/* Table Body */}
-
           <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {tableData.map((product) => (
-              <TableRow key={product.id} className="">
-                <TableCell className="py-3">
+            {latestBookings?.slice(0, 5).map((booking) => (
+              <TableRow key={booking._id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <TableCell className="py-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-[50px] w-[50px] overflow-hidden rounded-md">
-                      <img
-                        src={product.image}
-                        className="h-[50px] w-[50px]"
-                        alt={product.name}
-                      />
+                    <div className="h-[50px] w-[50px] overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800">
+                      {booking.car.images?.[0]?.url ? (
+                        <img
+                          src={booking?.car?.images[0].url}
+                          className="h-full w-full object-cover"
+                          alt={`${booking.car.brand} ${booking.car.model}`}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "https://via.placeholder.com/50x50?text=Car";
+                          }}
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <Car size={24} className="text-gray-400" />
+                        </div>
+                      )}
                     </div>
                     <div>
                       <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                        {product.name}
+                        {booking.car.brand} 
                       </p>
-                      <span className="text-gray-500 text-theme-xs dark:text-gray-400">
-                        {product.variants}
-                      </span>
+                      <div className="flex items-center gap-1 text-gray-500 text-theme-xs dark:text-gray-400">
+                        <MapPin size={12} />
+                        <span>{booking.pickupLocation.city}</span>
+                      </div>
                     </div>
                   </div>
                 </TableCell>
-                <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  {product.price}
+                
+                <TableCell className="py-4">
+                  <div className="space-y-1">
+                    <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                      {booking.user.name}
+                    </p>
+                    <p className="text-gray-500 text-theme-xs dark:text-gray-400">
+                      {booking.user.phone}
+                    </p>
+                    <p className="text-gray-500 text-theme-xs dark:text-gray-400 truncate max-w-[150px]">
+                      {booking.user.email}
+                    </p>
+                  </div>
                 </TableCell>
-                <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  {product.category}
+
+                <TableCell className="py-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1">
+                      <Calendar size={12} className="text-gray-400" />
+                      <span className="text-gray-800 text-theme-xs dark:text-white/90">
+                        {formatDate(booking.startDate)}
+                      </span>
+                    </div>
+                    <div className="text-gray-500 text-theme-xs dark:text-gray-400">
+                      {booking.totalDays} day{booking.totalDays !== 1 ? 's' : ''}
+                    </div>
+                    <div className="text-gray-500 text-theme-xs dark:text-gray-400">
+                      {booking.totalHours} hours
+                    </div>
+                  </div>
                 </TableCell>
-                <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  <Badge
-                    size="sm"
-                    color={
-                      product.status === "Delivered"
-                        ? "success"
-                        : product.status === "Pending"
-                        ? "warning"
-                        : "error"
-                    }
-                  >
-                    {product.status}
-                  </Badge>
+
+                <TableCell className="py-4">
+                  <div className="space-y-1">
+                    <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                      {formatCurrency(booking.totalAmount)}
+                    </p>
+                    <div className="flex items-center gap-1 text-gray-500 text-theme-xs dark:text-gray-400">
+                      <Shield size={12} />
+                      <span>Deposit: {formatCurrency(booking.securityDeposit)}</span>
+                    </div>
+                    {booking.securitySettlement?.refundAmount > 0 && (
+                      <div className="flex items-center gap-1 text-green-600 text-theme-xs dark:text-green-400">
+                        <span>Refund: {formatCurrency(booking.securitySettlement.refundAmount)}</span>
+                      </div>
+                    )}
+                  </div>
+                </TableCell>
+
+                <TableCell className="py-4">
+                  <div className="flex flex-col gap-1 justify-start items-center">
+                    <Badge
+                      size="sm"
+                      color={getStatusColor(booking.status)}
+                    >
+                      {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                    </Badge>
+                    {booking.cancellationReason && (
+                      <p className="text-red-500 text-theme-xs dark:text-red-400 truncate max-w-[120px]">
+                        Cancelled
+                      </p>
+                    )}
+                  </div>
+                </TableCell>
+
+                <TableCell className="py-4">
+                  <div className="flex flex-col gap-1 justify-start items-center">
+                    <Badge
+                      size="sm"
+                      color={getPaymentStatusColor(booking.paymentStatus)}
+                    >
+                      {booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-gray-500 text-theme-xs dark:text-gray-400">
+                      <CreditCard size={12} />
+                      <span className="capitalize">{booking.paymentMethod}</span>
+                    </div>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
+
+      {/* Empty State */}
+      {(!latestBookings || latestBookings.length === 0) && (
+        <div className="py-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+            <Car className="h-8 w-8 text-gray-400" />
+          </div>
+          <h4 className="mb-2 text-lg font-medium text-gray-800 dark:text-white/90">
+            No Bookings Found
+          </h4>
+          <p className="text-gray-500 dark:text-gray-400">
+            There are no recent bookings to display.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

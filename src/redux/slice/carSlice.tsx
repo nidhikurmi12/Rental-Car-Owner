@@ -232,6 +232,8 @@
 // export default carSlice.reducer;
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Request from "../../lib/axios";
+import api from "../../services/api.services";
 
 const API = "https://zoomridebackend-2.onrender.com/api";
 
@@ -303,13 +305,9 @@ export const getAllCars = createAsyncThunk(
   "cars/getAllCars",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(`${API}/cars/owner/my-cars`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-console.log("API Response:", res.data.data); // Debug log
-      return res.data.data; // always return only data array
+      const res = await Request.get(api.getAllCars);
+      console.log("get all cars:", res.data); 
+      return res.data.data; 
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
     }
@@ -317,14 +315,11 @@ console.log("API Response:", res.data.data); // Debug log
 );
 
 // 📌 GET CAR BY ID
-export const getCarById = createAsyncThunk("cars/getCarById", async (id, { rejectWithValue }) => {
-  console.log("Fetching car with ID:", id); // Debug log
+export const getCarById = createAsyncThunk("/cars/getCarById", async (id, { rejectWithValue }) => {
+  console.log("Fetching car with ID:", id); 
   try {
-     const token = localStorage.getItem("token");
-    const res = await axios.get(`${API}/cars/${id}`,{
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log("Car Data:", res.data.data); // Debug log
+    const res = await Request.get(`/cars/${id}`);
+      console.log("Car Data:", res.data.data); 
     return res.data.data;
   } catch (err) {
     return rejectWithValue(err.response?.data || err.message);
@@ -371,7 +366,7 @@ const carSlice = createSlice({
   initialState: {
     loading: false,
     cars: [],
-    singleCar: {},
+    singleCar: null,
     message: null,
     error: null,
   },

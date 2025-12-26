@@ -5,10 +5,12 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
+import Request from "../lib/axios";
+import api from "../services/api.services";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
-
+const [user,setUser]=useState(null)
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
   const handleToggle = () => {
@@ -18,7 +20,18 @@ const AppHeader: React.FC = () => {
       toggleMobileSidebar();
     }
   };
-
+const userProfile =async()=>{
+   try {
+      const res = await Request.get(api.userProfile)
+      setUser(res.data.data);
+      console.log(res.data.data,"resdata" );
+    } catch (error) {
+      console.log(error)
+    }
+      }
+      useEffect(()=>{
+      userProfile()
+      },[])
   const toggleApplicationMenu = () => {
     setApplicationMenuOpen(!isApplicationMenuOpen);
   };
@@ -164,7 +177,7 @@ const AppHeader: React.FC = () => {
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown />
+          <UserDropdown  user={user}/>
         </div>
       </div>
     </header>

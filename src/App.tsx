@@ -3,12 +3,6 @@ import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
-import Videos from "./pages/UiElements/Videos";
-import Images from "./pages/UiElements/Images";
-import Alerts from "./pages/UiElements/Alerts";
-import Badges from "./pages/UiElements/Badges";
-import Avatars from "./pages/UiElements/Avatars";
-import Buttons from "./pages/UiElements/Buttons";
 import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
 import Calendar from "./pages/Calendar";
@@ -29,37 +23,43 @@ import OwnerEarningsPage from "./pages/EarningAndPayment/EarningReport";
 import PaymentSettlementHistory from "./pages/EarningAndPayment/PaymentSettlementHistory";
 import CommissionDeductionDetails from "./pages/EarningAndPayment/CommissionDeductionDetails";
 import GSTInvoice from "./pages/EarningAndPayment/GSTInvoice";
+import ForgotPasswordPage from "./pages/AuthPages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/AuthPages/ResetPasswordPage";
+import RequireRole from "./components/auth/RequireRole";
+import CarDetail from "./pages/Car Management/CarDetails";
+import CarAvailabilityPage from "./pages/Car Management/CarAvailabilityPage";
 export default function App() {
   return (
     <>
       <Router>
         <ScrollToTop />
         <Routes>
+         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
-            <Route index path="/" element={<Home />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+         
             {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
+
+         
+              <Route element={<RequireRole allowedRoles={["car_owner"]} />}>
+            <Route path="/" element={<Home />} />
+   <Route path="/profile" element={<UserProfiles />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/car-pricing" element={<CarPricingPage />} />       
             {/* Forms */}
             <Route path="/add-cars" element={<FormElements />} />
+              <Route path="/add-cars/:id" element={<FormElements />} />
             {/* Tables */}
             <Route path="/car-management" element={<CarManagement />} />
-            {/* Ui Elements */}
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/avatars" element={<Avatars />} />
-            <Route path="/badge" element={<Badges />} />
-            <Route path="/buttons" element={<Buttons />} />
-            <Route path="/images" element={<Images />} />
-            <Route path="/videos" element={<Videos />} />
-
-          {/* Ui Elements */}
-            <Route path="/cars/allbookings" element={<AllBookingList />} />
+         <Route path="/cars/allbookings" element={<AllBookingList />} />
             <Route path="/cars/upcoming" element={<UpcomingBooking />} />
             <Route path="/cars/Ongoing" element={<OngoingBooking />} />
             <Route path="/cars/completed" element={<CompletedBooking />} />
             <Route path="/cars/cancelled" element={<CancelledBooking />} />
+             <Route path="/view-car/:id" element={<CarDetail />} />
+           <Route path="/cars/:carId/availability" element={<CarAvailabilityPage />} />
+
             <Route path="/cars/return-status" element={<ReturnStatusUpdate />} />
             <Route path="/cars/vehical/upload" element={<UploadVehicalCondition />} />
             {/* Earning And Payments */}
@@ -67,9 +67,11 @@ export default function App() {
               <Route path="/payment" element={<PaymentSettlementHistory />} />
              <Route path="/earning/commition" element={<CommissionDeductionDetails/>} />
              <Route path="/earning/gstinvoice" element={<GSTInvoice/>} />
+            
+          </Route>
 
-             
-
+          {/* Ui Elements */}
+           
             {/* Charts */}
             <Route path="/cars/vehical/upload" element={<LineChart />} />
             {/* Charts */}
