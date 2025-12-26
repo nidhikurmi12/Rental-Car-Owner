@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 
-export default function CarDetail() {
+export default function CarDetail({ carDetails } : { car?: any }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { singleCar, loading, error } = useSelector((s) => s.cars);
@@ -59,7 +59,7 @@ console.log(singleCar,"singleCar")
       </div>
     );
   }
-  const car = singleCar[0];
+  const car = singleCar[0] || carDetails;
   console.log("Car:", car);
   // Feature icons mapping
   const featureIcons = {

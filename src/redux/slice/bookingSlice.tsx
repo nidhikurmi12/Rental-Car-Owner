@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Request from "../../lib/axios";
+import { toast } from "react-toastify";
 
 const API_BASE = "https://zoomridebackend-2.onrender.com/api/bookings";
 
@@ -28,16 +30,13 @@ export const updateBookingStatus = createAsyncThunk(
   "bookings/updateBookingStatus",
   async ({ id, status, cancellationReason }, { getState, rejectWithValue }) => {
     try {
-      const token = getState().auth.token || localStorage.getItem("token");
-
-      const { data } = await axios.patch(
-        `${API_BASE}/${id}/status`,
+      // const token = getState().auth.token || localStorage.getItem("token");
+      const data = await Request.patch(
+        `/bookings/${id}/status`,
         { status, cancellationReason },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
       );
-
+      console.log("Updated booking data:", data);
+      toast.success(data.message || "Booking status updated successfully");
       return data.booking;
     } catch (err) {
       return rejectWithValue(

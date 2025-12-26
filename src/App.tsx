@@ -12,7 +12,7 @@ import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import CarManagement from "./pages/Car Management/CarManagement";
 import CarPricingPage from "./pages/Car Management/CarPricing";
-import AllBookingList from "./pages/Booking Management/AllBookingList"
+
 import CompletedBooking from "./pages/Booking Management/CompletedBooking"
 import OngoingBooking from "./pages/Booking Management/OngoingBooking"
 import ReturnStatusUpdate from "./pages/Booking Management/ReturnStatusUpdate"
@@ -28,6 +28,7 @@ import ResetPasswordPage from "./pages/AuthPages/ResetPasswordPage";
 import RequireRole from "./components/auth/RequireRole";
 import CarDetail from "./pages/Car Management/CarDetails";
 import CarAvailabilityPage from "./pages/Car Management/CarAvailabilityPage";
+import AllBookingList from "./pages/Booking Management/AllBookingList";
 export default function App() {
   return (
     <>
@@ -44,7 +45,7 @@ export default function App() {
          
               <Route element={<RequireRole allowedRoles={["car_owner"]} />}>
             <Route path="/" element={<Home />} />
-   <Route path="/profile" element={<UserProfiles />} />
+            <Route path="/profile" element={<UserProfiles />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/car-pricing" element={<CarPricingPage />} />       
             {/* Forms */}
@@ -52,13 +53,13 @@ export default function App() {
               <Route path="/add-cars/:id" element={<FormElements />} />
             {/* Tables */}
             <Route path="/car-management" element={<CarManagement />} />
-         <Route path="/cars/allbookings" element={<AllBookingList />} />
+            <Route path="/cars/all-bookings" element={<AllBookingList />} />
             <Route path="/cars/upcoming" element={<UpcomingBooking />} />
             <Route path="/cars/Ongoing" element={<OngoingBooking />} />
             <Route path="/cars/completed" element={<CompletedBooking />} />
             <Route path="/cars/cancelled" element={<CancelledBooking />} />
-             <Route path="/view-car/:id" element={<CarDetail />} />
-           <Route path="/cars/:carId/availability" element={<CarAvailabilityPage />} />
+            <Route path="/view-car/:id" element={<CarDetail />} />
+            <Route path="/cars/:carId/availability" element={<CarAvailabilityPage />} />
 
             <Route path="/cars/return-status" element={<ReturnStatusUpdate />} />
             <Route path="/cars/vehical/upload" element={<UploadVehicalCondition />} />
@@ -68,7 +69,7 @@ export default function App() {
              <Route path="/earning/commition" element={<CommissionDeductionDetails/>} />
              <Route path="/earning/gstinvoice" element={<GSTInvoice/>} />
             
-          </Route>
+              </Route>
 
           {/* Ui Elements */}
            

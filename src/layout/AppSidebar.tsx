@@ -52,7 +52,7 @@ const navItems: NavItem[] = [
     name: "Booking Management",
     icon: <TableIcon />,
     subItems: [
-      { name: "All Bookings List", path: "/cars/allbookings", pro: false },
+      { name: "All Bookings List", path: "/cars/all-bookings", pro: false },
       { name: "Upcoming Bookings", path: "/cars/upcoming", pro: false },
       { name: "Ongoing Bookings", path: "/cars/Ongoing", pro: false },
       { name: "Completed Bookings", path: "/cars/completed", pro: false },
